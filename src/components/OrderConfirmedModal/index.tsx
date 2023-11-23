@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { Modal } from 'react-native';
-import { CheckCircle } from '../Icons/CheckCircle';
-import { Text } from '../Text';
-import { Container, OkButton } from './styles';
+import {StatusBar} from 'expo-status-bar';
+import {Modal} from 'react-native';
+import {CheckCircle} from '../Icons/CheckCircle';
+import {Text} from '../Text';
+import {Container, OkButton} from './styles';
 
 interface OrderConfirmedModalProps {
   visible: boolean;
@@ -15,18 +15,18 @@ export function OrderConfirmedModal({
 }: OrderConfirmedModalProps) {
   return (
     <Modal visible={visible} animationType="fade">
-      <StatusBar style="light" />
+      <StatusBar style="light"/>
       <Container>
-        <CheckCircle />
+        <CheckCircle/>
         <Text
           size={20}
           weight="600"
           color="#fff"
-          style={{ marginTop: 15, marginBottom: 4 }}
+          style={{marginTop: 15, marginBottom: 4}}
         >
           Pedido confirmado
         </Text>
-        <Text color="#fff" opacity={0.9} style={{ marginBottom: 24 }}>
+        <Text color="#fff" opacity={0.9} style={{marginBottom: 24}}>
           O pedido já entrou na fila de produção!
         </Text>
         <OkButton onPress={onOk}>

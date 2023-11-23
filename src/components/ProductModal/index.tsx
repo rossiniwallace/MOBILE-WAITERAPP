@@ -1,9 +1,9 @@
-import { FlatList, Modal } from 'react-native';
-import { formatCurrency } from '../../utils/formatCurrency';
-import { Product } from '../../types/Product';
-import { Button } from '../Button';
-import { Close } from '../Icons/Close';
-import { Text } from '../Text';
+import {FlatList, Modal} from 'react-native';
+import {formatCurrency} from '../../utils/formatCurrency';
+import {Product} from '../../types/Product';
+import {Button} from '../Button';
+import {Close} from '../Icons/Close';
+import {Text} from '../Text';
 import {
   CloseButton,
   Footer,
@@ -39,11 +39,11 @@ export function ProductModal({
     <Modal visible={visible} animationType="slide" onRequestClose={onClose}>
       <Image
         source={{
-          uri: `http://10.0.2.2:4000/uploads/${product.imagePath}`,
+          uri: product.imagePath,
         }}
       >
         <CloseButton onPress={onClose}>
-          <Close color="#fff" />
+          <Close color="#fff"/>
         </CloseButton>
       </Image>
       <ModalBody>
@@ -51,7 +51,7 @@ export function ProductModal({
           <Text size={24} weight="600">
             {product.name}
           </Text>
-          <Text color="#666" style={{ marginTop: 8 }}>
+          <Text color="#666" style={{marginTop: 8}}>
             {product.description}
           </Text>
         </Header>
@@ -63,13 +63,13 @@ export function ProductModal({
             </Text>
             <FlatList
               data={product.ingredients}
-              keyExtractor={(ingredients) => ingredients._id}
+              keyExtractor={(ingredients) => ingredients.id}
               showsVerticalScrollIndicator={false}
-              style={{ marginTop: 16 }}
-              renderItem={({ item: ingredient }) => (
+              style={{marginTop: 16}}
+              renderItem={({item: ingredient}) => (
                 <Ingredient>
                   <Text>{ingredient.icon}</Text>
-                  <Text size={14} color="#666" style={{ marginLeft: 20 }}>
+                  <Text size={14} color="#666" style={{marginLeft: 20}}>
                     {ingredient.name}
                   </Text>
                 </Ingredient>

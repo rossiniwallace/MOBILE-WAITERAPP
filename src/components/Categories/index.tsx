@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { FlatList } from 'react-native';
-import { Category } from '../../types/Category';
-import { Text } from '../Text';
-import { CategoryContainer, Icon } from './styles';
+import {useState} from 'react';
+import {FlatList} from 'react-native';
+import {Category} from '../../types/Category';
+import {Text} from '../Text';
+import {CategoryContainer, Icon} from './styles';
 
 interface CategoriesProps {
   categories: Category[];
@@ -26,12 +26,12 @@ export function Categories({
       horizontal
       showsHorizontalScrollIndicator={false}
       data={categories}
-      contentContainerStyle={{ paddingRight: 24 }}
-      keyExtractor={(category) => category._id}
-      renderItem={({ item: category }) => {
-        const isSelected = selectedCategory === category._id;
+      contentContainerStyle={{paddingRight: 24}}
+      keyExtractor={(category) => category.id}
+      renderItem={({item: category}) => {
+        const isSelected = selectedCategory === category.id;
         return (
-          <CategoryContainer key={category._id} onPress={() => handleSelectCategory(category._id)}>
+          <CategoryContainer key={category.id} onPress={() => handleSelectCategory(category.id)}>
             <Icon>
               <Text opacity={isSelected ? 1 : 0.5}>{category.icon}</Text>
             </Icon>

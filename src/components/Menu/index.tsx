@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { FlatList } from 'react-native';
+import {useState} from 'react';
+import {FlatList} from 'react-native';
 
-import { Product } from '../../types/Product';
-import { formatCurrency } from '../../utils/formatCurrency';
-import { PlusCircle } from '../Icons/PlusCircle';
-import { ProductModal } from '../ProductModal';
-import { Text } from '../Text';
+import {Product} from '../../types/Product';
+import {formatCurrency} from '../../utils/formatCurrency';
+import {PlusCircle} from '../Icons/PlusCircle';
+import {ProductModal} from '../ProductModal';
+import {Text} from '../Text';
 import {
   ProductContainer,
   ProductImage,
@@ -19,7 +19,7 @@ interface MenuProps {
   products: Product[];
 }
 
-export function Menu({ onAddToCart, products }: MenuProps) {
+export function Menu({onAddToCart, products}: MenuProps) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<null | Product>(null);
 
@@ -38,20 +38,20 @@ export function Menu({ onAddToCart, products }: MenuProps) {
       />
       <FlatList
         data={products}
-        style={{ marginTop: 32 }}
-        contentContainerStyle={{ paddingHorizontal: 24 }}
-        keyExtractor={(products) => products._id}
+        style={{marginTop: 32}}
+        contentContainerStyle={{paddingHorizontal: 24}}
+        keyExtractor={(products) => products.id}
         ItemSeparatorComponent={Separator}
-        renderItem={({ item: product }) => (
-          <ProductContainer key={product._id} onPress={() => handleOpenModal(product)}>
+        renderItem={({item: product}) => (
+          <ProductContainer key={product.id} onPress={() => handleOpenModal(product)}>
             <ProductImage
               source={{
-                uri: `http://10.0.2.2:4000/uploads/${product.imagePath}`,
+                uri: product.imagePath,
               }}
             />
             <ProductDetails>
               <Text weight="600">{product.name}</Text>
-              <Text size={14} color="#666" style={{ marginVertical: 8 }}>
+              <Text size={14} color="#666" style={{marginVertical: 8}}>
                 {product.description}
               </Text>
               <Text size={14} weight="600">
@@ -59,7 +59,7 @@ export function Menu({ onAddToCart, products }: MenuProps) {
               </Text>
             </ProductDetails>
             <AddToCartButton onPress={() => onAddToCart(product)}>
-              <PlusCircle />
+              <PlusCircle/>
             </AddToCartButton>
           </ProductContainer>
         )}

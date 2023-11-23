@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
-import { formatCurrency } from '../../utils/formatCurrency';
-import { CartItem } from '../../types/CartItem';
-import { Product } from '../../types/Product';
-import { Button } from '../Button';
-import { MinusCircle } from '../Icons/MinusCircle';
-import { PlusCircle } from '../Icons/PlusCircle';
-import { OrderConfirmedModal } from '../OrderConfirmedModal';
-import { Text } from '../Text';
+import {useState} from 'react';
+import {FlatList, TouchableOpacity} from 'react-native';
+import {formatCurrency} from '../../utils/formatCurrency';
+import {CartItem} from '../../types/CartItem';
+import {Product} from '../../types/Product';
+import {Button} from '../Button';
+import {MinusCircle} from '../Icons/MinusCircle';
+import {PlusCircle} from '../Icons/PlusCircle';
+import {OrderConfirmedModal} from '../OrderConfirmedModal';
+import {Text} from '../Text';
 import {
   Item,
   ProductContainer,
@@ -18,7 +18,7 @@ import {
   Summary,
   TotalContainer,
 } from './styles';
-import { api } from '../../utils/api';
+import {api} from '../../utils/api';
 
 interface CartProps {
   cartItems: CartItem[];
@@ -47,11 +47,12 @@ export function Cart({
     const payload = {
       table: selectedTable,
       products: cartItems.map((cartItem) => ({
-        product: cartItem.product._id,
+        productId: cartItem.product.id,
         quantity: cartItem.quantity,
       })),
     };
 
+    console.log(payload);
     await api.post('/orders', payload);
     setIsLoading(false);
     setIsModalVisible(true);
@@ -64,19 +65,19 @@ export function Cart({
 
   return (
     <>
-      <OrderConfirmedModal visible={isModalVisible} onOk={handleOk} />
+      <OrderConfirmedModal visible={isModalVisible} onOk={handleOk}/>
       {cartItems.length > 0 && (
         <FlatList
           data={cartItems}
-          keyExtractor={(cartItem) => cartItem.product._id}
+          keyExtractor={(cartItem) => cartItem.product.id}
           showsVerticalScrollIndicator={false}
-          style={{ marginBottom: 20, maxHeight: 150 }}
-          renderItem={({ item: cartItem }) => (
+          style={{marginBottom: 20, maxHeight: 150}}
+          renderItem={({item: cartItem}) => (
             <Item>
               <ProductContainer>
                 <Image
                   source={{
-                    uri: `http://10.0.2.2:4000/uploads/${cartItem.product.imagePath}`,
+                    uri: cartItem.product.imagePath,
                   }}
                 />
                 <QuantityContainer>
@@ -85,7 +86,7 @@ export function Cart({
                   </Text>
                 </QuantityContainer>
                 <ProductDetails>
-                  <Text size={14} weight="600" style={{ marginBottom: 4 }}>
+                  <Text size={14} weight="600" style={{marginBottom: 4}}>
                     {cartItem.product.name}
                   </Text>
                   <Text size={14} color="#666">
@@ -95,13 +96,13 @@ export function Cart({
               </ProductContainer>
               <Actions>
                 <TouchableOpacity
-                  style={{ marginRight: 24 }}
+                  style={{marginRight: 24}}
                   onPress={() => onDecrease(cartItem.product)}
                 >
-                  <MinusCircle />
+                  <MinusCircle/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => onAdd(cartItem.product)}>
-                  <PlusCircle />
+                  <PlusCircle/>
                 </TouchableOpacity>
               </Actions>
             </Item>

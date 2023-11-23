@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { Button } from '../components';
-import { Cart } from '../components/Cart';
-import { Categories } from '../components/Categories';
-import { Header } from '../components/Header';
-import { Menu } from '../components/Menu';
-import { TableModal } from '../components/TableModal';
-import { CartItem } from '../types/CartItem';
-import { Product } from '../types/Product';
+import {useEffect, useState} from 'react';
+import {ActivityIndicator} from 'react-native';
+import {Button} from '../components';
+import {Cart} from '../components/Cart';
+import {Categories} from '../components/Categories';
+import {Header} from '../components/Header';
+import {Menu} from '../components/Menu';
+import {TableModal} from '../components/TableModal';
+import {CartItem} from '../types/CartItem';
+import {Product} from '../types/Product';
 
 import {
   Container,
@@ -17,10 +17,10 @@ import {
   FooterContainer,
   CenteredContainer,
 } from './styles';
-import { Empty } from '../components/Icons/Empty';
-import { Text } from '../components/Text';
-import { Category } from '../types/Category';
-import { api } from '../utils/api';
+import {Empty} from '../components/Icons/Empty';
+import {Text} from '../components/Text';
+import {Category} from '../types/Category';
+import {api} from '../utils/api';
 
 export function Main() {
   const [isTableModalVisible, setIsTableModalVisible] = useState(false);
@@ -37,14 +37,14 @@ export function Main() {
     setIsLoading(false);
   }, []);
 
-  async function laodingCategories(){
-    await api.get('/categories').then(({data})=>{
+  async function laodingCategories() {
+    await api.get('/categories').then(({data}) => {
       setCategories(data);
     });
   }
 
-  async function laodingProducts(){
-    await api.get('/products').then(({data})=>{
+  async function laodingProducts() {
+    await api.get('/products').then(({data}) => {
       setProducts(data);
       setIsLoadingProducts(false);
     });
@@ -60,7 +60,7 @@ export function Main() {
     setIsLoadingProducts(true);
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    const { data } = await api.get(route);
+    const {data} = await api.get(route);
 
     setProducts(data);
     setIsLoadingProducts(false);
@@ -82,7 +82,7 @@ export function Main() {
     // Maneira mais segura de passar state é com função prevState
     setCartItems((prevState) => {
       const itemIndex = prevState.findIndex(
-        (cartItem) => cartItem.product._id === product._id
+        (cartItem) => cartItem.product.id === product.id
       );
 
       if (itemIndex < 0) {
@@ -106,7 +106,7 @@ export function Main() {
   function handleDecrementCartItem(product: Product) {
     setCartItems((prevState) => {
       const itemIndex = prevState.findIndex(
-        (cartItem) => cartItem.product._id === product._id
+        (cartItem) => cartItem.product.id === product.id
       );
 
       const item = prevState[itemIndex];
@@ -138,7 +138,7 @@ export function Main() {
         {isLoading ? (
           <>
             <CenteredContainer>
-              <ActivityIndicator color="#D73035" size={200} animating={true} />
+              <ActivityIndicator color="#D73035" size={200} animating={true}/>
             </CenteredContainer>
           </>
         ) : (
@@ -162,12 +162,12 @@ export function Main() {
               <>
                 {products.length > 0 ? (
                   <MenuContainer>
-                    <Menu onAddToCart={handleAddToCart} products={products} />
+                    <Menu onAddToCart={handleAddToCart} products={products}/>
                   </MenuContainer>
                 ) : (
                   <CenteredContainer>
-                    <Empty />
-                    <Text color="#666" style={{ marginTop: 24 }}>
+                    <Empty/>
+                    <Text color="#666" style={{marginTop: 24}}>
                       Nenhum produto foi encontrado!
                     </Text>
                   </CenteredContainer>
